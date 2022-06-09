@@ -1174,6 +1174,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4973984242861090496, guid: aa19efa97073e4deeb6a02cc0a5e1b22, type: 3}
+      propertyPath: speed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973984242861090496, guid: aa19efa97073e4deeb6a02cc0a5e1b22, type: 3}
+      propertyPath: fallSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973984242861090496, guid: aa19efa97073e4deeb6a02cc0a5e1b22, type: 3}
       propertyPath: groundCollision
       value: 
       objectReference: {fileID: 633369869}

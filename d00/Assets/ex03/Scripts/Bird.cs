@@ -5,6 +5,7 @@ public class Bird : MonoBehaviour
 	[SerializeField] private float speed;
 	[SerializeField] private Transform groundCollision;
 	[HideInInspector] public bool gameActive;
+	[SerializeField] private float fallSpeed;
 	public float PipeSpeed { get; set; }
 	public Transform[] pipe1Collisions;
 	public Transform[] pipe2Collisions;
@@ -53,7 +54,7 @@ public class Bird : MonoBehaviour
 				_goingUp = false;
 		}
 
-		transform.Translate(Vector3.down * Time.deltaTime);
+		transform.Translate(Vector3.down * (Time.deltaTime * fallSpeed));
 	}
 
 	private void CheckCollisions(Transform[] collisions)
