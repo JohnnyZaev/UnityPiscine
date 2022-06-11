@@ -17,22 +17,23 @@ public class playerScript_ex00 : MonoBehaviour
 	{
 		_playerRb = GetComponent<Rigidbody2D>();
 		_playerBoxCollider2D = GetComponent<BoxCollider2D>();
-		_playerRb.bodyType = RigidbodyType2D.Static;
 	}
 
 	private void FixedUpdate()
 	{
 		if (!IsActive)
 		{
-			if (_playerRb.bodyType != RigidbodyType2D.Dynamic) return;
-			_playerRb.bodyType = RigidbodyType2D.Static;
+			if (_playerRb.mass > 2) return;
+			_playerRb.mass = 30f;
+			_playerRb.constraints |= RigidbodyConstraints2D.FreezePositionX;
 
 			return;
 		}
 
-		if (_playerRb.bodyType == RigidbodyType2D.Static)
+		if (_playerRb.mass > 2)
 		{
-			_playerRb.bodyType = RigidbodyType2D.Dynamic;
+			_playerRb.mass = 1f;
+			_playerRb.constraints &= RigidbodyConstraints2D.FreezeRotation;
 		}
 
 		_playerRb.velocity = new Vector2(_horizontalMovement * Time.fixedDeltaTime * playerSpeed, _playerRb.velocity.y);
