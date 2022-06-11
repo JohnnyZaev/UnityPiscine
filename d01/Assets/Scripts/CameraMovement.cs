@@ -11,6 +11,8 @@ public class CameraMovement : MonoBehaviour
 	private const int John = 1;
 	private const int Clair = 2;
 	private int _currentPlayer;
+	public int Victory { get; set; }
+	private bool _gameActive;
 
 	private void Awake()
 	{
@@ -19,10 +21,23 @@ public class CameraMovement : MonoBehaviour
 		_cameraTransform.position = unitsTransforms[John].position;
 		_currentPlayer = Thomas;
 		playerScripts[_currentPlayer].IsActive = true;
+		Victory = 0;
+		_gameActive = true;
 	}
 
 	private void Update()
 	{
+		if (!_gameActive)
+			return;
+		if (Victory == 3)
+		{
+			Debug.Log("Victory!");
+			_gameActive = false;
+			foreach (var script in playerScripts)
+			{
+				script.IsActive = false;
+			}
+		}
 		if (Input.GetKeyDown(KeyCode.R))
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		if (Input.GetKeyDown(KeyCode.Alpha1) && _currentPlayer != Thomas)

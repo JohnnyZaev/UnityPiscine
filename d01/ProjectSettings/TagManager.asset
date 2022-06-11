@@ -7,6 +7,9 @@ TagManager:
   - Thomas
   - John
   - Clair
+  - John exit
+  - Clair exit
+  - Thomas exit
   layers:
   - Default
   - TransparentFX

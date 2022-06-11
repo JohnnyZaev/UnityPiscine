@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class playerScript_ex01 : MonoBehaviour
 {
+	[SerializeField] private CameraMovement cameraScript;
 	[SerializeField] private float playerSpeed;
 	[SerializeField] private float playerJumpForce;
 	[SerializeField] private LayerMask platformLayerMask;
@@ -14,6 +16,7 @@ public class playerScript_ex01 : MonoBehaviour
 	private float _horizontalMovement;
 	private bool _jumpButton;
 	private bool _jumpButtonReleased;
+	
 
 	private void Awake()
 	{
@@ -67,4 +70,19 @@ public class playerScript_ex01 : MonoBehaviour
 		return raycastHit.collider || raycastHit2.Length > 1;
 	}
 
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag(name + " exit"))
+		{
+			cameraScript.Victory += 1;
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.CompareTag($"{name} exit"))
+		{
+			cameraScript.Victory -= 1;
+		}
+	}
 }
