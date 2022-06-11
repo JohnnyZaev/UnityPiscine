@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class playerScript_ex00 : MonoBehaviour
+public class playerScript_ex01 : MonoBehaviour
 {
 	[SerializeField] private float playerSpeed;
 	[SerializeField] private float playerJumpForce;
@@ -59,10 +61,10 @@ public class playerScript_ex00 : MonoBehaviour
 		const float extraHeightTest = 0.1f;
 		var bounds = _playerBoxCollider2D.bounds;
 		var raycastHit = Physics2D.BoxCast(bounds.center , bounds.size , 0f, Vector2.down, extraHeightTest, 
-		platformLayerMask);
+			platformLayerMask);
 		var raycastHit2 = Physics2D.BoxCastAll(bounds.center, bounds.size, 0f, Vector2.down, extraHeightTest, 
-		playerLayerMask);
+			playerLayerMask);
 		return raycastHit.collider || raycastHit2.Length > 1;
 	}
-	
+
 }

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class CameraMovement : MonoBehaviour
 {
 	[SerializeField] private Transform[] unitsTransforms;
-	[SerializeField] private playerScript_ex00[] playerScripts;
+	[SerializeField] private playerScript_ex01[] playerScripts;
 	private Vector3 _cameraOffset;
 	private Transform _cameraTransform;
 	private const int Thomas = 0;
