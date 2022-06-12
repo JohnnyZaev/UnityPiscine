@@ -6,11 +6,10 @@ public class playerScript_ex01 : MonoBehaviour
 	[SerializeField] private float playerSpeed;
 	[SerializeField] private float playerJumpForce;
 	[SerializeField] private LayerMask platformLayerMask;
-	[SerializeField] private LayerMask playerLayerMask;
+	[SerializeField] private LayerMask[] playerLayerMask;
 	public bool IsActive { get; set; }
 	private Rigidbody2D _playerRb;
 	private BoxCollider2D _playerBoxCollider2D;
-	private LayerManager _layerManager;
 	private float _horizontalMovement;
 	private bool _jumpButton;
 	private bool _jumpButtonReleased;
@@ -20,7 +19,6 @@ public class playerScript_ex01 : MonoBehaviour
 	{
 		_playerRb = GetComponent<Rigidbody2D>();
 		_playerBoxCollider2D = GetComponent<BoxCollider2D>();
-		_layerManager = GetComponent<LayerManager>();
 	}
 
 	private void FixedUpdate()
@@ -36,8 +34,6 @@ public class playerScript_ex01 : MonoBehaviour
 
 		if (_playerRb.mass > 2)
 		{
-			if (_layerManager)
-				_layerManager.Ignore();
 			_playerRb.mass = 1f;
 			_playerRb.constraints &= RigidbodyConstraints2D.FreezeRotation;
 		}
@@ -66,9 +62,14 @@ public class playerScript_ex01 : MonoBehaviour
 		var bounds = _playerBoxCollider2D.bounds;
 		var raycastHit = Physics2D.BoxCast(bounds.center , bounds.size , 0f, Vector2.down, extraHeightTest, 
 			platformLayerMask);
-		var raycastHit2 = Physics2D.BoxCastAll(bounds.center, bounds.size, 0f, Vector2.down, extraHeightTest, 
-			playerLayerMask);
-		return raycastHit.collider || raycastHit2.Length > 1;
+		foreach (var layerMask in playerLayerMask)
+		{
+			var raycastHit2 = Physics2D.BoxCast(bounds.center, bounds.size, 0f, Vector2.down, extraHeightTest, 
+				layerMask);
+			if (raycastHit2.collider)
+				return true;
+		}
+		return raycastHit.collider;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)

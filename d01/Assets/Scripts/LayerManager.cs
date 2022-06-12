@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LayerManager : MonoBehaviour
@@ -6,14 +7,12 @@ public class LayerManager : MonoBehaviour
 	[SerializeField] private int[] ignoredLayers;
 
 	[SerializeField] private int myLayer;
-	private const int PlayerLayer = 3;
 
-	public void Ignore()
+	private void Start()
 	{
 		foreach (var layer in ignoredLayers)
 		{
-			Physics2D.IgnoreLayerCollision(PlayerLayer, layer, true);
+			Physics2D.IgnoreLayerCollision(myLayer, layer, true);
 		}
-		Physics2D.IgnoreLayerCollision(PlayerLayer, myLayer, false);
 	}
 }
