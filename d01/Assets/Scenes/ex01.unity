@@ -1468,7 +1468,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   playerLayerMask:
-    serializedVersion: 2
+  - serializedVersion: 2
     m_Bits: 8
 --- !u!1001 &4895987622097088682
 PrefabInstance:
@@ -1564,7 +1564,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   playerLayerMask:
-    serializedVersion: 2
+  - serializedVersion: 2
     m_Bits: 8
 --- !u!1001 &6900833875080105164
 PrefabInstance:
@@ -1660,5 +1660,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   playerLayerMask:
-    serializedVersion: 2
+  - serializedVersion: 2
     m_Bits: 8
