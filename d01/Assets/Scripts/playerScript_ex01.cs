@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class playerScript_ex01 : MonoBehaviour
 {
-	[SerializeField] private CameraMovement cameraScript;
+	[SerializeField] private CameraMovement01 cameraScript;
 	[SerializeField] private float playerSpeed;
 	[SerializeField] private float playerJumpForce;
 	[SerializeField] private LayerMask platformLayerMask;
