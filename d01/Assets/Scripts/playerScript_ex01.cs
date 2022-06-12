@@ -13,6 +13,7 @@ public class playerScript_ex01 : MonoBehaviour
 	public bool IsActive { get; set; }
 	private Rigidbody2D _playerRb;
 	private BoxCollider2D _playerBoxCollider2D;
+	private LayerManager _layerManager;
 	private float _horizontalMovement;
 	private bool _jumpButton;
 	private bool _jumpButtonReleased;
@@ -22,6 +23,7 @@ public class playerScript_ex01 : MonoBehaviour
 	{
 		_playerRb = GetComponent<Rigidbody2D>();
 		_playerBoxCollider2D = GetComponent<BoxCollider2D>();
+		_layerManager = GetComponent<LayerManager>();
 	}
 
 	private void FixedUpdate()
@@ -37,6 +39,8 @@ public class playerScript_ex01 : MonoBehaviour
 
 		if (_playerRb.mass > 2)
 		{
+			if (_layerManager)
+				_layerManager.Ignore();
 			_playerRb.mass = 1f;
 			_playerRb.constraints &= RigidbodyConstraints2D.FreezeRotation;
 		}
