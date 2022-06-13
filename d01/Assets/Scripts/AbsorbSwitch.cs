@@ -12,6 +12,7 @@ public class AbsorbSwitch : MonoBehaviour
 	private const int John = 1;
 	private const int Clair = 2;
 	private int _currentColour;
+	private bool _isActive;
 
 	private void Awake()
 	{
@@ -28,7 +29,7 @@ public class AbsorbSwitch : MonoBehaviour
 	{
 		if (_inTriggerRadius)
 		{
-			if (Input.GetKeyDown(KeyCode.F))
+			if (Input.GetKeyDown(KeyCode.F) && _isActive)
 				IsSwitched = !IsSwitched;
 		}
 		if (IsSwitched)
@@ -49,12 +50,21 @@ public class AbsorbSwitch : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-		if (other.name == "Thomas")
-			_currentColour = Thomas;
-		if (other.name == "John")
-			_currentColour = John;
-		if (other.name == "Clair")
-			_currentColour = Clair;
+		if (other.GetComponent<playerScript_ex01>().IsActive == false)
+		{
+			_isActive = false;
+			return;
+		}
+
+		_isActive = true;
+		
+		_currentColour = other.name switch
+		{
+			"Thomas" => Thomas,
+			"John" => John,
+			"Clair" => Clair,
+			_ => _currentColour
+		};
 		_inTriggerRadius = true;
 	}
 

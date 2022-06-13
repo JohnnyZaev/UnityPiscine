@@ -8,6 +8,7 @@ public class Switch : MonoBehaviour
 	private Vector3 _doorStarterPosition;
 	private float _endPosition;
 	private bool _inTriggerRadius;
+	private bool _isActive;
 
 	private void Awake()
 	{
@@ -21,7 +22,7 @@ public class Switch : MonoBehaviour
 	{
 		if (_inTriggerRadius)
 		{
-			if (Input.GetKeyDown(KeyCode.F))
+			if (Input.GetKeyDown(KeyCode.F) && _isActive)
 				IsSwitched = !IsSwitched;
 		}
 		if (IsSwitched)
@@ -42,6 +43,14 @@ public class Switch : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
+		if (other.GetComponent<playerScript_ex01>().IsActive == false)
+		{
+			_isActive = false;
+			return;
+		}
+
+		_isActive = true;
+
 		_inTriggerRadius = true;
 	}
 
