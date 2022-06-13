@@ -1935,7 +1935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraScript: {fileID: 519420033}
   playerSpeed: 200
-  playerJumpForce: 5
+  playerJumpForce: 6
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -1945,7 +1945,7 @@ MonoBehaviour:
   - serializedVersion: 2
     m_Bits: 2048
   - serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 512
 --- !u!114 &6900833875080105170
 MonoBehaviour:
   m_ObjectHideFlags: 0

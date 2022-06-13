@@ -31,12 +31,22 @@ public class CameraMovement01 : MonoBehaviour
 			return;
 		if (Victory == 3)
 		{
-			Debug.Log("Victory!");
-			_gameActive = false;
-			foreach (var script in playerScripts)
+			if (SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1)
 			{
-				script.IsActive = false;
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+				Debug.Log("Victory! Dont stop!");
 			}
+			else
+			{
+				Debug.Log("Victory!");
+				_gameActive = false;
+				foreach (var script in playerScripts)
+				{
+					script.IsActive = false;
+				}
+			}
+			
+
 		}
 		if (Input.GetKeyDown(KeyCode.R))
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
