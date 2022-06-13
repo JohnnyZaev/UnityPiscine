@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AbsorbSwitch : MonoBehaviour
 {
-	public bool IsSwitched { get; private set; }
+	private bool IsSwitched { get; set; }
 	[SerializeField] private Transform[] doorTransform;
 	[SerializeField] private BoxCollider2D[] doorCollider2D;
 	private readonly Vector3[] _doorStarterPosition = new Vector3[3];

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlatformSwitcher : MonoBehaviour
 {
-	private bool IsSwitched { get; set; }
 	[SerializeField] private GameObject platform;
 	private SpriteRenderer _platformSpriteRenderer;
 	private bool _inTriggerRadius;
@@ -20,7 +19,6 @@ public class PlatformSwitcher : MonoBehaviour
 		_john = LayerMask.NameToLayer("YellowGround");
 		_clair = LayerMask.NameToLayer("BlueGround");
 		_currentLayer = _john;
-		IsSwitched = false;
 	}
 
 	private void Update()

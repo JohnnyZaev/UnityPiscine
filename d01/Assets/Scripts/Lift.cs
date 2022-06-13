@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Lift : MonoBehaviour
 {
-	[SerializeField] float offsetUp, offsetDown, speed = 1;
-	[SerializeField] bool hasReachedUp, hasReachedDown;
-	Vector3 _startPosition = Vector3.zero;
- 
-	void Awake()
+	[SerializeField] private float offsetUp, offsetDown, speed = 1;
+	[SerializeField] private bool hasReachedUp, hasReachedDown;
+	private Vector3 _startPosition = Vector3.zero;
+
+	private void Awake()
 	{
 		_startPosition = transform.position;
 	}
@@ -38,8 +38,8 @@ public class Lift : MonoBehaviour
 			}
 		}
 	}
- 
-	void Move(float offset)
+
+	private void Move(float offset)
 	{
 		var position = transform.position;
 		position = Vector3.MoveTowards(position,
