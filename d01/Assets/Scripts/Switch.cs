@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Switch : MonoBehaviour
@@ -8,18 +7,19 @@ public class Switch : MonoBehaviour
 	[SerializeField] private BoxCollider2D doorCollider2D;
 	private Vector3 _doorStarterPosition;
 	private float _endPosition;
-	private bool inTriggerRadius;
+	private bool _inTriggerRadius;
 
 	private void Awake()
 	{
-		_doorStarterPosition = doorTransform.position;
-		_endPosition = doorCollider2D.bounds.size.y + doorTransform.position.y;
+		var position = doorTransform.position;
+		_doorStarterPosition = position;
+		_endPosition = doorCollider2D.bounds.size.y + position.y;
 		IsSwitched = false;
 	}
 
 	private void Update()
 	{
-		if (inTriggerRadius)
+		if (_inTriggerRadius)
 		{
 			if (Input.GetKeyDown(KeyCode.F))
 				IsSwitched = !IsSwitched;
@@ -42,11 +42,11 @@ public class Switch : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-		inTriggerRadius = true;
+		_inTriggerRadius = true;
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
 	{
-		inTriggerRadius = false;
+		_inTriggerRadius = false;
 	}
 }
