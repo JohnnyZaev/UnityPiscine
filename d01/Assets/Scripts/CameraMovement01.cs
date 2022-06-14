@@ -27,6 +27,16 @@ public class CameraMovement01 : MonoBehaviour
 
 	private void Update()
 	{
+		
+		if (Input.GetKeyDown(KeyCode.R))
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		if (playerScripts[_currentPlayer].IsActive == false)
+			_gameActive = false;
+		if (transform.position.y <= -5.5)
+		{
+			_gameActive = false;
+			Debug.Log("Game over!");
+		}
 		if (!_gameActive)
 			return;
 		if (Victory == 3)
@@ -48,8 +58,6 @@ public class CameraMovement01 : MonoBehaviour
 			
 
 		}
-		if (Input.GetKeyDown(KeyCode.R))
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		if (Input.GetKeyDown(KeyCode.Alpha1) && _currentPlayer != Thomas)
 		{
 			ChangePlayer(Thomas);

@@ -10,6 +10,8 @@ TagManager:
   - John exit
   - Clair exit
   - Thomas exit
+  - Trap
+  - Gun
   layers:
   - Default
   - TransparentFX

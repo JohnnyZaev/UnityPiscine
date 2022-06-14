@@ -78,6 +78,12 @@ public class playerScript_ex01 : MonoBehaviour
 		{
 			cameraScript.Victory += 1;
 		}
+
+		if (other.CompareTag("Trap"))
+		{
+			IsActive = false;
+			Debug.Log("Game over!");
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
