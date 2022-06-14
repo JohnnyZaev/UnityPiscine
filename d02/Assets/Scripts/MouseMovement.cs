@@ -16,7 +16,9 @@ public class MouseMovement : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			_movePosition.SetMovePosition(_camera.ScreenToWorldPoint(Input.mousePosition));
+			var screenToWorldPoint = _camera.ScreenToWorldPoint(Input.mousePosition);
+			screenToWorldPoint.z = 0;
+			_movePosition.SetMovePosition(screenToWorldPoint);
 		}
 	}
 }
