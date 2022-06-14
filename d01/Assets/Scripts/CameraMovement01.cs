@@ -32,13 +32,14 @@ public class CameraMovement01 : MonoBehaviour
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		if (playerScripts[_currentPlayer].IsActive == false)
 			_gameActive = false;
+		if (!_gameActive)
+			return;
 		if (transform.position.y <= -5.5)
 		{
+			playerScripts[_currentPlayer].IsActive = false;
 			_gameActive = false;
 			Debug.Log("Game over!");
 		}
-		if (!_gameActive)
-			return;
 		if (Victory == 3)
 		{
 			if (SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1)

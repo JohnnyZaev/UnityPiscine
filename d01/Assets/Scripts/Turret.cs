@@ -16,6 +16,7 @@ public class Turret : MonoBehaviour
 	private int _clair;
 	private int _currentLayer;
 	private Color _color;
+	private bool _isActive = true;
 
 	private void Awake()
 	{
@@ -44,7 +45,8 @@ public class Turret : MonoBehaviour
 
 	private void Update()
 	{
-		_currentFireRate += Time.deltaTime;
+		if (_isActive)
+			_currentFireRate += Time.deltaTime;
 	}
 
 	private void OnTriggerEnter2D(Collider2D col)
@@ -60,11 +62,9 @@ public class Turret : MonoBehaviour
 			_currentTag = null;
 		}
 
-		if (_currentTag != null)
-		{
-			_player = col.gameObject;
-			Shoot();
-		}
+		if (_currentTag == null) return;
+		_player = col.gameObject;
+		Shoot();
 	}
 	
 	private void OnTriggerStay2D(Collider2D col)
@@ -80,15 +80,12 @@ public class Turret : MonoBehaviour
 			_currentTag = null;
 		}
 
-		if (_currentTag != null)
-		{
-			_player = col.gameObject;
-			if (_currentFireRate >= fireRate)
-			{
-				Shoot();
-				_currentFireRate = 0;
-			}
-		}
+		if (_currentTag == null) return;
+		_player = col.gameObject;
+		_isActive = _player.GetComponent<playerScript_ex01>().IsActive;
+		if (!(_currentFireRate >= fireRate) || !_isActive) return;
+		Shoot();
+		_currentFireRate = 0;
 	}
 
 	private void Shoot()
