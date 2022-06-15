@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class UnitRTS : MonoBehaviour
 {
 	[SerializeField] private float speed;
@@ -63,17 +64,14 @@ public class UnitRTS : MonoBehaviour
         var direction = (_targetPosition - transform.position).normalized;
         _animator.SetFloat(X, direction.x);
         _animator.SetFloat(Y, direction.y);
-        if (direction.x < 0f)
-	        _spriteRenderer.flipX = true;
-        else
-	        _spriteRenderer.flipX = false;
+        _spriteRenderer.flipX = direction.x < 0f;
 
         MoveTo(_targetPosition);
     }
 
     private void MoveTo(Vector3 position)
     {
-        if ((position - transform.position).sqrMagnitude > 0.05f)
+        if ((position - transform.position).sqrMagnitude > 0.1f)
         {
             var newPosition = Vector3.MoveTowards(transform.position, position, Time.deltaTime * speed);
             _animator.SetBool(IsMoving, true);

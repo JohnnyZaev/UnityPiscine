@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +8,8 @@ public class UnitController : MonoBehaviour
     
     [SerializeField] private new Camera camera;
 
-    private List<UnitRTS> _currentSelection = new List<UnitRTS>();
-    private Collider2D[] _selectionCache = new Collider2D[5];
+    private readonly List<UnitRTS> _currentSelection = new List<UnitRTS>();
+    private readonly Collider2D[] _selectionCache = new Collider2D[5];
     
     private LayerMask _playerUnitsLayerMask;
     // private LayerMask _enemyTargetLayerMask;
@@ -42,20 +41,18 @@ public class UnitController : MonoBehaviour
             // }
             if (Physics2D.OverlapPointNonAlloc(worldPoint, _selectionCache, _playerUnitsLayerMask) > 0)
             {
-                if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
+	            if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
                 {
                     _currentSelection.Clear();
                 }
 
-                for (var i = 0; i < _selectionCache.Length; i++)
-                {
-                    if (_selectionCache[i] && _selectionCache[i].TryGetComponent<UnitRTS>(out var unit))
-                    {
-                        _currentSelection.Add(unit);
-                        unit.Select();
-                        break;
-                    }
-                }
+	            foreach (var t in _selectionCache)
+	            {
+		            if (!t || !t.TryGetComponent<UnitRTS>(out var unit)) continue;
+		            _currentSelection.Add(unit);
+		            unit.Select();
+		            break;
+	            }
             }
             else
             {
