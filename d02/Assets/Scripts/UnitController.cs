@@ -4,7 +4,7 @@ using UnityEngine;
 public class UnitController : MonoBehaviour
 {
     [SerializeField] private string playerUnitsLayer;
-    // [SerializeField] private string[] enemyTargetLayers;
+    [SerializeField] private string enemyTargetLayer;
     
     [SerializeField] private new Camera camera;
 
@@ -12,12 +12,12 @@ public class UnitController : MonoBehaviour
     private readonly Collider2D[] _selectionCache = new Collider2D[5];
     
     private LayerMask _playerUnitsLayerMask;
-    // private LayerMask _enemyTargetLayerMask;
+    private LayerMask _enemyTargetLayerMask;
 
     private void Start()
     {
         _playerUnitsLayerMask = LayerMask.GetMask(playerUnitsLayer);
-        // _enemyTargetLayerMask = LayerMask.GetMask(enemyTargetLayers);
+        _enemyTargetLayerMask = LayerMask.GetMask(enemyTargetLayer);
     }
 
     private void Update()
@@ -25,21 +25,21 @@ public class UnitController : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0))
         {
             var worldPoint = camera.ScreenToWorldPoint(Input.mousePosition);
-            // if (Physics2D.OverlapPointNonAlloc(worldPoint, _selectionCache, _enemyTargetLayerMask) > 0)
-            // {
-            //     Health target = null;
-            //     for (var i = 0; i < _selectionCache.Length; i++)
-            //     {
-            //         if (_selectionCache[i]
-            //             && ((1 << _selectionCache[i].gameObject.layer) & _enemyTargetLayerMask) != 0
-            //             && _selectionCache[i].TryGetComponent<Health>(out target))
-            //         {
-            //             break;
-            //         }
-            //     }
-            //     _currentSelection.ForEach(x => x.UpdateTarget(target));
-            // }
-            if (Physics2D.OverlapPointNonAlloc(worldPoint, _selectionCache, _playerUnitsLayerMask) > 0)
+            if (Physics2D.OverlapPointNonAlloc(worldPoint, _selectionCache, _enemyTargetLayerMask) > 0)
+            {
+                HealthSystem target = null;
+                foreach (var t in _selectionCache)
+                {
+	                if (t
+	                    && ((1 << t.gameObject.layer) & _enemyTargetLayerMask) != 0
+	                    && t.TryGetComponent<HealthSystem>(out target))
+	                {
+		                break;
+	                }
+                }
+                _currentSelection.ForEach(x => x.UpdateTarget(target));
+            }
+            else if (Physics2D.OverlapPointNonAlloc(worldPoint, _selectionCache, _playerUnitsLayerMask) > 0)
             {
 	            if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
                 {

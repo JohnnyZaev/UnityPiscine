@@ -16,7 +16,7 @@ public class UnitRTS : MonoBehaviour
     private Animator _animator;
     private Rigidbody2D _rigidbody;
 
-    // private Health _target;
+    private HealthSystem _target;
     private Vector3 _targetPosition;
     
     private float _currentAttackDelay;
@@ -24,6 +24,7 @@ public class UnitRTS : MonoBehaviour
     private static readonly int X = Animator.StringToHash("X");
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     private SpriteRenderer _spriteRenderer;
+    private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
 
     private void Awake()
     {
@@ -41,25 +42,23 @@ public class UnitRTS : MonoBehaviour
     {
         _currentAttackDelay -= Time.deltaTime;
         
-        // if (_target
-        //     && (_target.transform.position - transform.position).sqrMagnitude <= maxAttackDistance * maxAttackDistance)
-        // {
-        //     _animator.SetBool("IsAttacking", true);
-        //     if (_currentAttackDelay <= 0)
-        //     {
-        //         _target.GetComponent<Health>().TakeDamage(damage);
-        //         onAttack?.Invoke();
-        //         _currentAttackDelay = attackDelay;
-        //     }
-        //     return;
-        // }
+        if (_target
+            && (_target.transform.position - transform.position).sqrMagnitude <= maxAttackDistance * maxAttackDistance)
+        {
+            _animator.SetBool(IsAttacking, true);
+            if (!(_currentAttackDelay <= 0)) return;
+            _target.GetComponent<HealthSystem>().TakeDamage(damage);
+            onAttack?.Invoke();
+            _currentAttackDelay = attackDelay;
+            return;
+        }
         
-        // _animator.SetBool("IsAttacking", false);
+        _animator.SetBool(IsAttacking, false);
         
-        // if (_target)
-        // {
-        //     _targetPosition = _target.transform.position;
-        // }
+        if (_target)
+        {
+            _targetPosition = _target.transform.position;
+        }
         
         var direction = (_targetPosition - transform.position).normalized;
         _animator.SetFloat(X, direction.x);
@@ -85,10 +84,10 @@ public class UnitRTS : MonoBehaviour
         }
     }
 
-    // public void UpdateTarget(Health newTarget)
-    // {
-    //     _target = newTarget;
-    // }
+    public void UpdateTarget(HealthSystem newTarget)
+    {
+        _target = newTarget;
+    }
 
     public void UpdateTargetPosition(Vector3 newTargetPosition)
     {

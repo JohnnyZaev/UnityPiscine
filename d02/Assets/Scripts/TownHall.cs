@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TownHall : MonoBehaviour
 {
 	[SerializeField] private GameObject unitPrefab;
 	[SerializeField] private Transform spawnPosition;
-	private const float _spawnTime = 10f;
+	private float _spawnTime = 10f;
 	private float _currentSpawnTime;
 
 	private void Awake()
@@ -25,5 +22,20 @@ public class TownHall : MonoBehaviour
 
 		Instantiate(unitPrefab, spawnPosition.position, Quaternion.identity);
 		_currentSpawnTime = 0f;
+	}
+
+	public void IncreaseSpawnTime()
+	{
+		_spawnTime += 2.5f;
+	}
+
+	public void PrintAllienceWin()
+	{
+		Debug.Log("The Human Team wins.");
+	}
+
+	public void PrintHordeTeamWin()
+	{
+		Debug.Log("The Orc Team wins.");
 	}
 }
