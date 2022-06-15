@@ -32,7 +32,7 @@ public class UnitController : MonoBehaviour
                 {
 	                if (t
 	                    && ((1 << t.gameObject.layer) & _enemyTargetLayerMask) != 0
-	                    && t.TryGetComponent<HealthSystem>(out target))
+	                    && t.TryGetComponent(out target))
 	                {
 		                break;
 	                }

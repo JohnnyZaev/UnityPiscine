@@ -92,7 +92,7 @@ public class UnitRTS : MonoBehaviour
     public void UpdateTargetPosition(Vector3 newTargetPosition)
     {
         newTargetPosition.z = transform.position.z;
-        // _target = null;
+        _target = null;
         _targetPosition = newTargetPosition;
         onTargetPositionChanged?.Invoke();
     }
