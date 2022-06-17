@@ -7,6 +7,7 @@ public class gameManager : MonoBehaviour {
 	//Vous pouvez directement changer ces valeurs de base dans l'inspecteur si vous voulez personnaliser votre jeu
 	[HideInInspector]public int playerHp = 20;
 	public int playerMaxHp = 20;
+	[SerializeField] private GameObject NextLevelScreen;
 	[HideInInspector]public int playerEnergy = 300;
 	public int playerStartEnergy = 300;
 
@@ -29,10 +30,13 @@ public class gameManager : MonoBehaviour {
 	}
 
 	void Start() {
-		Time.timeScale = 1;
+		Time.timeScale = 0;
 		playerHp = playerMaxHp;
 		playerEnergy = playerStartEnergy;
 		tmpTimeScale = Time.timeScale;
+		nextWaveEnnemyHpUp *= SceneManager.GetActiveScene().buildIndex;
+		averageWavesLenght *= SceneManager.GetActiveScene().buildIndex;
+		totalWavesNumber *= SceneManager.GetActiveScene().buildIndex;
 	}
 
 	//Pour mettre le jeu en pause
@@ -65,6 +69,7 @@ public class gameManager : MonoBehaviour {
 	public void gameOver() {
 		Time.timeScale = 0;
 		Debug.Log ("Game Over");
+		NextLevelScreen.SetActive(true);
 	}
 
 	public void QuitGame()
@@ -79,6 +84,11 @@ public class gameManager : MonoBehaviour {
 	public void LoadNextScene()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+	}
+
+	public void ReloadScene()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 	
 	public void SpawnTower(GameObject prefab, Vector2 worldPosition)

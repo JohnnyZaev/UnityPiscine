@@ -68,6 +68,7 @@ public class ennemyScript : MonoBehaviour {
 				}
 			}
 			Debug.Log ("Victoire !");
+			// GameObject.FindGameObjectWithTag("NextLevel").SetActive(true);
 		}
 	}
 }
