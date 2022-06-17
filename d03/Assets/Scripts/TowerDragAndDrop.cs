@@ -68,9 +68,9 @@ public class TowerDragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
 	public void OnPointerDown(PointerEventData eventData)
     {
-	    if (!buyAvailable || uiManager.onDrag)
+	    if (!buyAvailable || UIManager.onDrag)
 		    return;
-	    uiManager.onDrag = true;
+	    UIManager.onDrag = true;
 	    onDrag = true;
     }
 
@@ -78,7 +78,7 @@ public class TowerDragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     {
 	    if (!buyAvailable)
 		    return;
-	    uiManager.onDrag = false;
+	    UIManager.onDrag = false;
 	    onDrag = false;
 	    rectTransform.position = startingPosition;
 	    onTowerDragFinished?.Invoke(towerPrefab, eventData.position);
