@@ -68,7 +68,7 @@ public class TowerDragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
 	public void OnPointerDown(PointerEventData eventData)
     {
-	    if (!buyAvailable || UIManager.onDrag)
+	    if (!buyAvailable || UIManager.onDrag || !Input.GetMouseButtonDown(0))
 		    return;
 	    UIManager.onDrag = true;
 	    onDrag = true;

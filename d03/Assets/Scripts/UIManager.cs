@@ -8,16 +8,20 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private new Camera camera;
 	[SerializeField] private GameObject pauseMenu;
 	[SerializeField] private GameObject gameMenu;
+	[SerializeField] private GameObject towerUpgradeObject;
 	[SerializeField] private Texture2D cursor;
 	[SerializeField] private TMP_Text hp;
 	[SerializeField] private TMP_Text energy;
 	[SerializeField] private TMP_Text rank;
 
 	private RectTransform towerRadialMenuRectTransform;
+	private TowerUpgrade _towerUpgrade;
 
 	private void Awake()
 	{
 		Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
+		_towerUpgrade = towerUpgradeObject.GetComponent<TowerUpgrade>();
+		towerRadialMenuRectTransform = towerUpgradeObject.GetComponent<RectTransform>();
 	}
 
 	public void SpawnTower(GameObject prefab, Vector2 screenPosition)
@@ -29,6 +33,17 @@ public class UIManager : MonoBehaviour
 
 	private void Update()
 	{
+		if (Input.GetMouseButtonDown(1))
+		{
+			var hit = Physics2D.OverlapPoint(camera.ScreenToWorldPoint(Input.mousePosition), LayerMask.GetMask("turret"));
+			if (hit && hit.transform.TryGetComponent<towerScript>(out var towerScript))
+			{
+				towerRadialMenuRectTransform.position = camera.WorldToScreenPoint(towerScript.transform.position);
+				towerUpgradeObject.SetActive(true);
+                
+				_towerUpgrade.SetTower(towerScript);
+			}
+		}
 		hp.text = gameManager.gm.playerHp.ToString();
 		energy.text = gameManager.gm.playerEnergy.ToString();
 		rank.text = gameManager.gm.playerHp switch
