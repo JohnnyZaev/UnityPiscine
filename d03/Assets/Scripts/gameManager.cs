@@ -72,4 +72,16 @@ public class gameManager : MonoBehaviour {
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
+	
+	public void SpawnTower(GameObject prefab, Vector2 worldPosition)
+	{
+		var hit = Physics2D.OverlapPoint(worldPosition, LayerMask.GetMask("Default"));
+		if (!hit)
+			return;
+		var hitPosition = hit.transform.position;
+		Destroy(hit.gameObject);
+		var go = Instantiate(prefab, hitPosition, Quaternion.identity);
+		var tower = go.GetComponent<towerScript>();
+		playerEnergy -= tower.energy;
+	}
 }
