@@ -37,7 +37,6 @@ public class gameManager : MonoBehaviour {
 		tmpTimeScale = Time.timeScale;
 		nextWaveEnnemyHpUp *= SceneManager.GetActiveScene().buildIndex;
 		averageWavesLenght *= SceneManager.GetActiveScene().buildIndex;
-		totalWavesNumber *= SceneManager.GetActiveScene().buildIndex;
 	}
 
 	//Pour mettre le jeu en pause
