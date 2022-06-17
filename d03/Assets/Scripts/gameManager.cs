@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour {
@@ -31,21 +32,24 @@ public class gameManager : MonoBehaviour {
 		Time.timeScale = 1;
 		playerHp = playerMaxHp;
 		playerEnergy = playerStartEnergy;
+		tmpTimeScale = Time.timeScale;
 	}
 
 	//Pour mettre le jeu en pause
 	public void pause(bool paused) {
 		if (paused == true) {
-			tmpTimeScale = Time.timeScale;
 			Time.timeScale = 0;
 		}
 		else
+		{
 			Time.timeScale = tmpTimeScale;
+		}
 	}
 
 	//Pour changer la vitesse de base du jeu
 	public void changeSpeed(float speed) {
 		Time.timeScale = speed;
+		tmpTimeScale = Time.timeScale;
 	}
 
 	//Le joueur perd de la vie
@@ -65,7 +69,11 @@ public class gameManager : MonoBehaviour {
 
 	public void QuitGame()
 	{
-		Application.Quit();
+		#if UNITY_EDITOR
+			EditorApplication.isPlaying = false;
+		#else
+			Application.Quit();
+		#endif
 	}
 
 	public void LoadNextScene()
