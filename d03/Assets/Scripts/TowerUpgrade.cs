@@ -62,7 +62,7 @@ public class TowerUpgrade : MonoBehaviour
             {
                 var isEnoughEnergy = currentEnergy >= energy;
                 label.color = isEnoughEnergy
-                    ? Color.white
+                    ? Color.black
                     : Color.red;
                 button.interactable = isEnoughEnergy;
             }
