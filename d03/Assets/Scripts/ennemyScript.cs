@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class ennemyScript : MonoBehaviour {
 
@@ -68,7 +69,8 @@ public class ennemyScript : MonoBehaviour {
 				}
 			}
 			Debug.Log ("Victoire !");
-			// GameObject.FindGameObjectWithTag("NextLevel").SetActive(true);
+			gameManager.gm.NextLevelScreen.SetActive(true);
+			gameManager.gm.NextLevelScreen.GetComponentInChildren<TMP_Text>().text += gameManager.gm.score.ToString();
 		}
 	}
 }

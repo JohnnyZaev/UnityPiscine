@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private Texture2D cursor;
 	[SerializeField] private TMP_Text hp;
 	[SerializeField] private TMP_Text energy;
+	[SerializeField] private TMP_Text rank;
 
 	private RectTransform towerRadialMenuRectTransform;
 
@@ -30,6 +31,14 @@ public class UIManager : MonoBehaviour
 	{
 		hp.text = gameManager.gm.playerHp.ToString();
 		energy.text = gameManager.gm.playerEnergy.ToString();
+		rank.text = gameManager.gm.playerHp switch
+		{
+			20 when gameManager.gm.playerEnergy > 200 => "Rank: SSS",
+			< 20 when gameManager.gm.playerEnergy > 150 => "Rank: S",
+			< 15 when gameManager.gm.playerEnergy > 100 => "Rank: A",
+			< 10 when gameManager.gm.playerEnergy > 50 => "Rank: B",
+			_ => "Rank: C"
+		};
 		if (!Input.GetKeyDown(KeyCode.Escape)) return;
 		pauseMenu.SetActive(true);
 		gameManager.gm.pause(true);

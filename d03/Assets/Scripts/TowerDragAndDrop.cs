@@ -52,7 +52,7 @@ public class TowerDragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 	{
 		if (onDrag)
 		{
-			rectTransform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Vector3.back * 10;
+			rectTransform.position = Input.mousePosition;
 		}
 		if (gameManager.gm.playerEnergy >= towerScript.energy)
 		{

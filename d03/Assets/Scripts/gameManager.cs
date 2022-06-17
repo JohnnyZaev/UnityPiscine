@@ -7,7 +7,8 @@ public class gameManager : MonoBehaviour {
 	//Vous pouvez directement changer ces valeurs de base dans l'inspecteur si vous voulez personnaliser votre jeu
 	[HideInInspector]public int playerHp = 20;
 	public int playerMaxHp = 20;
-	[SerializeField] private GameObject NextLevelScreen;
+	[SerializeField] private GameObject GameOverScreen;
+	public GameObject NextLevelScreen;
 	[HideInInspector]public int playerEnergy = 300;
 	public int playerStartEnergy = 300;
 
@@ -69,7 +70,7 @@ public class gameManager : MonoBehaviour {
 	public void gameOver() {
 		Time.timeScale = 0;
 		Debug.Log ("Game Over");
-		NextLevelScreen.SetActive(true);
+		GameOverScreen.SetActive(true);
 	}
 
 	public void QuitGame()
