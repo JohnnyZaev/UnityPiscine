@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
@@ -15,7 +13,7 @@ public class DoorTrigger : MonoBehaviour
 	{
 		if (_isOpening)
 		{
-			if (door.transform.position.y < 0)
+			if (door.transform.position.y < 2f)
 			{
 				door.transform.Translate(Vector3.up * Time.deltaTime);
 			}
