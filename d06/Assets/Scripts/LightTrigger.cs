@@ -7,6 +7,6 @@ public class LightTrigger : MonoBehaviour
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.CompareTag("Player"))
-			light.currentDetection += 51 * Time.deltaTime;
+			light.currentDetection += 151 * Time.deltaTime;
 	}
 }
