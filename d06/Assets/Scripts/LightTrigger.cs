@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class LightTrigger : MonoBehaviour
 {
-	[SerializeField] private DetectLight light;
+	[SerializeField] private DetectLight lightDetector;
 
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.CompareTag("Player"))
-			light.currentDetection += 151 * Time.deltaTime;
+			lightDetector.currentDetection += 151 * Time.deltaTime;
 	}
 }
