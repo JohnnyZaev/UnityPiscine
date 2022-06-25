@@ -4,7 +4,7 @@ public class HealingHeavy : Skill
 {
     public float coolDownTime;
     public float powerRegen;
-    private float oldTimeActivate;
+    private float _oldTimeActivate;
     [SerializeField] private ParticleSystem _ps;
     
     public void levelUpSkill()
@@ -12,15 +12,15 @@ public class HealingHeavy : Skill
         if (levelSkill < maxLvlSkill)
         {
             levelSkill += 1;
-            powerRegen = powerRegen + (powerRegen * 0.50f);
-            coolDownTime = coolDownTime - (coolDownTime * 0.1f);
+            powerRegen += (powerRegen * 0.50f);
+            coolDownTime -= (coolDownTime * 0.1f);
             GamaManager.gm.upgradeSkillDone();
         }
     }
 
     public void Update()
     {
-        if (!isActive && Time.time - oldTimeActivate > coolDownTime)
+        if (!isActive && Time.time - _oldTimeActivate > coolDownTime)
         {
             isActive = true;
         }
@@ -33,7 +33,7 @@ public class HealingHeavy : Skill
             float maxHp = aliveObject.maxHp;
             if (hp > 0)
             {
-                hp = hp + (maxHp * powerRegen);
+                hp += (maxHp * powerRegen);
                 if (hp > maxHp)
                 {
                     hp = maxHp;
@@ -41,14 +41,14 @@ public class HealingHeavy : Skill
                 aliveObject.hp = System.Convert.ToInt32(hp);
             }
             isActive = false;
-            oldTimeActivate = Time.time;
+            _oldTimeActivate = Time.time;
             _ps.Play();
         }
     }
     
     public override string getInfo()
     {
-        return "Regen hp " + (GamaManager.gm.pc.maxHp * powerRegen) + " CD " + coolDownTime + " seconds ";
+        return $"Regen hp {(GamaManager.gm.pc.maxHp * powerRegen)} CD {coolDownTime} seconds ";
     }
     
     public override string getInfoLevelNext()
@@ -56,6 +56,6 @@ public class HealingHeavy : Skill
         float tmpPowerRegen = powerRegen + (powerRegen * 0.50f);
         float tmpCoolDownTime = coolDownTime - (coolDownTime * 0.1f);
             
-        return "Regen hp " + (GamaManager.gm.pc.maxHp * tmpPowerRegen) + " CD " + tmpCoolDownTime + " seconds ";
+        return $"Regen hp {(GamaManager.gm.pc.maxHp * tmpPowerRegen)} CD {tmpCoolDownTime} seconds ";
     }
 }

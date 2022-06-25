@@ -50,10 +50,7 @@ public class EnemyControllerBoss : AliveObject
 			}
         }
     }
-
-    /*
-     * Public action
-     */
+    
     public void attack()
     {
         if (75 + agility - playerController.agility > 60)

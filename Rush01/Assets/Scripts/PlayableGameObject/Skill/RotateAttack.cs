@@ -15,8 +15,8 @@ public class RotateAttack : Skill
         if (levelSkill < maxLvlSkill)
         {
             levelSkill += 1;
-            damage = damage + (damage * 0.1f);
-            coolDownTime = coolDownTime - (coolDownTime * 0.05f);
+            damage += (damage * 0.1f);
+            coolDownTime -= (coolDownTime * 0.05f);
             GamaManager.gm.upgradeSkillDone();
         }
     }
@@ -69,7 +69,8 @@ public class RotateAttack : Skill
     
     public override string getInfo()
     {
-        return "Rotate attack damage " + (damage + GamaManager.gm.pc.minDamage * GamaManager.gm.pc.level) + "/" + (damage + GamaManager.gm.pc.maxDamage * GamaManager.gm.pc.level) + " CD " + coolDownTime + " seconds ";
+        return
+	        $"Rotate attack damage {(damage + GamaManager.gm.pc.minDamage * GamaManager.gm.pc.level)}/{(damage + GamaManager.gm.pc.maxDamage * GamaManager.gm.pc.level)} CD {coolDownTime} seconds ";
     }
     
     public override string getInfoLevelNext()
@@ -77,6 +78,7 @@ public class RotateAttack : Skill
         float tmpDamage = damage + (damage * 0.1f);
         float coolDownTimeTmp = coolDownTime - (coolDownTime * 0.05f);
             
-        return "Rotate attack damage " + (tmpDamage + GamaManager.gm.pc.minDamage * GamaManager.gm.pc.level) + "/" + (tmpDamage + GamaManager.gm.pc.maxDamage * GamaManager.gm.pc.level) + " CD " + coolDownTimeTmp + " seconds ";
+        return
+	        $"Rotate attack damage {(tmpDamage + GamaManager.gm.pc.minDamage * GamaManager.gm.pc.level)}/{(tmpDamage + GamaManager.gm.pc.maxDamage * GamaManager.gm.pc.level)} CD {coolDownTimeTmp} seconds ";
     }
 }

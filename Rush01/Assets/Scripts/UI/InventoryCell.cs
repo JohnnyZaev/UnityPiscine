@@ -28,9 +28,9 @@ public class InventoryCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (currentWeapon)
         {
             _weaponStats = currentWeapon.GetComponent<WeaponStats>();
-            damage.text = "Damage: " + _weaponStats.damage;
-            speed.text = "Speed: " + _weaponStats.attackSpeed;
-            cost.text = "Cost: " + _weaponStats.cost;
+            damage.text = $"Damage: {_weaponStats.damage}";
+            speed.text = $"Speed: {_weaponStats.attackSpeed}";
+            cost.text = $"Cost: {_weaponStats.cost}";
             stats.SetActive(true);
         }
     }

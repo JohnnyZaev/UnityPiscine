@@ -73,6 +73,8 @@ public class InventoryManager : MonoBehaviour
                 newNumber++;
         }
         if (weaponsNmber != newNumber)
-            weaponsNmber = newNumber;
+        {
+	        weaponsNmber = newNumber;
+        }
     }
 }

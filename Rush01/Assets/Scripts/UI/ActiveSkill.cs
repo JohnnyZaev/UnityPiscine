@@ -5,19 +5,9 @@ public class ActiveSkill : MonoBehaviour
 {
     public int number;
     
-    // Update is called once per frame
     private void Update()
     {
-        if (SkillManager.sk.skill[number] != null)
-        {
-            if (SkillManager.sk.skill[number].isActive)
-            {
-                gameObject.GetComponent<Image>().color = Color.white;
-            }
-            else
-            {
-                gameObject.GetComponent<Image>().color = Color.black;
-            }
-        }
+	    if (SkillManager.sk.skill[number] == null) return;
+	    gameObject.GetComponent<Image>().color = SkillManager.sk.skill[number].isActive ? Color.white : Color.black;
     }
 }

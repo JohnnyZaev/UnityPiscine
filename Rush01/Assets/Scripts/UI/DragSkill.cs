@@ -8,12 +8,10 @@ public class DragSkill : MonoBehaviour
     
     public void Selected()
     {
-        if (skill.levelSkill != 0)
-        {
-            isSelected = true;
-            GamaManager.gm.isSelectedSkill = true;
-            GamaManager.gm.dragSkill = this;
-        }
+	    if (skill.levelSkill == 0) return;
+	    isSelected = true;
+	    GamaManager.gm.isSelectedSkill = true;
+	    GamaManager.gm.dragSkill = this;
     }
 
 }

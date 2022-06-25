@@ -8,16 +8,14 @@ public class FireballSkill : Skill
     private float oldTimeActivate;
     private int count;
     [SerializeField]private GameObject fireball;
-    
-    //private AliveObject _aliveObject;
-    
+
     public void levelUpSkill()
     {
         if (levelSkill < maxLvlSkill)
         {
             levelSkill += 1;
-            damage = damage + (damage * 0.1f);
-            coolDownTime = coolDownTime - (coolDownTime * 0.05f);
+            damage += (damage * 0.1f);
+            coolDownTime -= (coolDownTime * 0.05f);
             GamaManager.gm.upgradeSkillDone();
         }
     }
@@ -45,7 +43,8 @@ public class FireballSkill : Skill
     
     public override string getInfo()
     {
-        return "Fireball damage" + (damage + GamaManager.gm.pc.minDamage * GamaManager.gm.pc.level) + "/" + (damage + GamaManager.gm.pc.maxDamage * GamaManager.gm.pc.level) + " CD " + coolDownTime + " seconds ";
+        return
+	        $"Fireball damage{(damage + GamaManager.gm.pc.minDamage * GamaManager.gm.pc.level)}/{(damage + GamaManager.gm.pc.maxDamage * GamaManager.gm.pc.level)} CD {coolDownTime} seconds ";
     }
 
     public override string getInfoLevelNext()
@@ -53,6 +52,7 @@ public class FireballSkill : Skill
         float damageTmp = damage + (damage * 0.1f);
         float coolDownTimeTmp = coolDownTime - (coolDownTime * 0.05f);
             
-        return "Fireball damage" + (damageTmp + GamaManager.gm.pc.minDamage * GamaManager.gm.pc.level) + "/" + (damageTmp + GamaManager.gm.pc.maxDamage * GamaManager.gm.pc.level) + " CD " + coolDownTimeTmp + " seconds ";
+        return
+	        $"Fireball damage{(damageTmp + GamaManager.gm.pc.minDamage * GamaManager.gm.pc.level)}/{(damageTmp + GamaManager.gm.pc.maxDamage * GamaManager.gm.pc.level)} CD {coolDownTimeTmp} seconds ";
     }
 }

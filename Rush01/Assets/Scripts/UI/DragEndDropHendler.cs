@@ -3,13 +3,13 @@ using UnityEngine.EventSystems;
 
 public class DragEndDropHendler : MonoBehaviour, IDragHandler, IEndDragHandler
 {
-    private Vector3 startPos;
+    private Vector3 _startPos;
     private InventoryManager _im;
     public InventoryCell cell;
     private void Start()
     {
         _im = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
-        startPos = transform.position;
+        _startPos = transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -20,7 +20,7 @@ public class DragEndDropHendler : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.position = startPos;
+        transform.position = _startPos;
         cell.DropItem();
     }
 }

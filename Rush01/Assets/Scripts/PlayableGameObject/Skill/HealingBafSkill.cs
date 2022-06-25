@@ -22,8 +22,8 @@ public class HealingBafSkill : Skill
         if (levelSkill < maxLvlSkill)
         {
             levelSkill += 1;
-            coolDownTime = coolDownTime - (coolDownTime * 0.10f);
-            powerRegen = powerRegen + (powerRegen * 0.1f);
+            coolDownTime -= (coolDownTime * 0.10f);
+            powerRegen += (powerRegen * 0.1f);
             GamaManager.gm.upgradeSkillDone();
         }
     }
@@ -46,7 +46,7 @@ public class HealingBafSkill : Skill
             float maxHp = _alive.maxHp;
             if (hp > 0)
             {
-                hp = hp + (maxHp * powerRegen);
+                hp += (maxHp * powerRegen);
                 if (hp > maxHp)
                 {
                     hp = maxHp;
@@ -73,7 +73,7 @@ public class HealingBafSkill : Skill
     
     public override string getInfo()
     {
-        return "Regen hp " + (GamaManager.gm.pc.maxHp * powerRegen) + " CD " + coolDownTime + " seconds ";
+        return $"Regen hp {(GamaManager.gm.pc.maxHp * powerRegen)} CD {coolDownTime} seconds ";
     }
     
     public override string getInfoLevelNext()
@@ -81,6 +81,6 @@ public class HealingBafSkill : Skill
         float tmpCoolDownTime = coolDownTime - (coolDownTime * 0.10f);
         float tmpPowerRegen = powerRegen + (powerRegen * 0.1f);
             
-        return "Regen hp " + (GamaManager.gm.pc.maxHp * tmpPowerRegen) + " CD " + tmpCoolDownTime + " seconds ";
+        return $"Regen hp {(GamaManager.gm.pc.maxHp * tmpPowerRegen)} CD {tmpCoolDownTime} seconds ";
     }
 }

@@ -11,7 +11,7 @@ public class RegenerationHp : PassiveSkill
         if (levelSkill < maxLvlSkill)
         {
             levelSkill += 1;
-            coolDownTime = coolDownTime - (coolDownTime * 0.10f);
+            coolDownTime -= (coolDownTime * 0.10f);
             GamaManager.gm.upgradeSkillDone();
         }
     }
@@ -24,7 +24,7 @@ public class RegenerationHp : PassiveSkill
             float maxHp = gameObject.GetComponent<AliveObject>().maxHp;
             if (hp > 0)
             {
-                hp = hp + (maxHp * powerRegen);
+                hp += (maxHp * powerRegen);
                 if (hp > maxHp)
                 {
                     hp = maxHp;
@@ -37,13 +37,13 @@ public class RegenerationHp : PassiveSkill
 
     public override string getInfo()
     {
-        return "Regen hp " + (GamaManager.gm.pc.maxHp * powerRegen).ToString() + " every " + coolDownTime + "seconds";
+        return $"Regen hp {(GamaManager.gm.pc.maxHp * powerRegen)} every {coolDownTime}seconds";
     }
 
     public override string getInfoLevelNext()
     {
         float tmpCoolDownTime = coolDownTime - (coolDownTime * 0.10f);
 
-        return "Regen hp " + (GamaManager.gm.pc.maxHp * powerRegen).ToString() + " every " + tmpCoolDownTime + "seconds";
+        return $"Regen hp {(GamaManager.gm.pc.maxHp * powerRegen)} every {tmpCoolDownTime}seconds";
     }
 }

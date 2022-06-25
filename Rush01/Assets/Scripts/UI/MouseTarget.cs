@@ -2,14 +2,9 @@
 
 public class MouseTarget : MonoBehaviour
 {
-
-    
-    
-    private RaycastHit hit;
-
-    private Ray ray;
-
-    private Vector3 mouse;
+	private RaycastHit _hit;
+	private Ray _ray;
+	private Vector3 _mouse;
 
     public bool isTarget;
 
@@ -19,35 +14,30 @@ public class MouseTarget : MonoBehaviour
     public void Start()
     {
 	    _camera = Camera.main;
-	    mouse = new Vector3();
+	    _mouse = new Vector3();
     }
     
     // Update is called once per frame
     private void Update()
     {
-        mouse = Input.mousePosition;
-        mouse.z = 10;
-        ray = _camera.ScreenPointToRay(mouse);
-        //Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue);
-        if (Physics.Raycast(ray, out hit))
+        _mouse = Input.mousePosition;
+        _mouse.z = 10;
+        _ray = _camera.ScreenPointToRay(_mouse);
+        if (!Physics.Raycast(_ray, out _hit)) return;
+        if (_hit.transform.gameObject.CompareTag("EnemyObject"))
         {
-            if (hit.transform.gameObject.CompareTag("EnemyObject"))
-            {
-                GamaManager.gm.target(hit.transform.gameObject.GetComponent<AliveObject>());
-            }
-            else if (isTarget)
-            {
-                GamaManager.gm.target(target);
-                if (target.hp <= 0)
-                {
-                    isTarget = false;
-                    target = null;
-                }
-            }
-            else 
-            {
-                GamaManager.gm.targetViewEnemy(false);
-            }
+	        GamaManager.gm.target(_hit.transform.gameObject.GetComponent<AliveObject>());
+        }
+        else if (isTarget)
+        {
+	        GamaManager.gm.target(target);
+	        if (target.hp > 0) return;
+	        isTarget = false;
+	        target = null;
+        }
+        else 
+        {
+	        GamaManager.gm.targetViewEnemy(false);
         }
     }
 }

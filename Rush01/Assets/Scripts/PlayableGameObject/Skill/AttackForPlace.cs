@@ -15,14 +15,20 @@ public class AttackForPlace : Skill
 
     public GameObject skill;
     private AliveObject _aliveObject;
-    
+    private Camera _camera;
+
+    private void Start()
+    {
+	    _camera = Camera.main;
+    }
+
     public void levelUpSkill()
     {
         if (levelSkill < maxLvlSkill)
         {
             levelSkill += 1;
-            damage = damage + (damage * 0.1f);
-            coolDownTime = coolDownTime - (coolDownTime * 0.05f);
+            damage += (damage * 0.1f);
+            coolDownTime -= (coolDownTime * 0.05f);
             GamaManager.gm.upgradeSkillDone();
         }
     }
@@ -35,7 +41,7 @@ public class AttackForPlace : Skill
         }
         if (isReady && GamaManager.gm.pc.getSpeed() == 0)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {

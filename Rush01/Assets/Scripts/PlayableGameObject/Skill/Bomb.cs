@@ -7,27 +7,26 @@ public class Bomb : MonoBehaviour
     public float speed;
     private float _damage;
     
-    private Vector3 dir;
+    private Vector3 _dir;
     private Rigidbody _rb;
-    private bool isDamage;
+    private bool _isDamage;
     
     public void Start()
     {
         _rb = GetComponent<Rigidbody>();
     }
     
-    // Update is called once per frame
     private void Update()
     {
         if (isFly)
         {
-            _rb.AddForce(dir * (Time.deltaTime * speed), ForceMode.Impulse);
+            _rb.AddForce(_dir * (Time.deltaTime * speed), ForceMode.Impulse);
         }
     }
 
     private void LateUpdate()
     {
-        if (!isDamage)
+        if (!_isDamage)
         {
             explosionDamage();
         }
@@ -35,10 +34,10 @@ public class Bomb : MonoBehaviour
 
     public void fly(GameObject go)
     {
-        dir = -go.transform.up;
+        _dir = -go.transform.up;
         gameObject.tag = go.tag;
         isFly = true;
-        isDamage = false;
+        _isDamage = false;
     }
 
     public void setDamage(float damage)
@@ -55,7 +54,7 @@ public class Bomb : MonoBehaviour
             if (hitColliders[i].gameObject.tag.Equals("EnemyObject"))
             {
                 hitColliders[i].SendMessage("hit", _damage);
-                isDamage = true;
+                _isDamage = true;
             }
             i++;
         }

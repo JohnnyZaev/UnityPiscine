@@ -112,7 +112,7 @@ public class GamaManager : MonoBehaviour
         hpEnemy.maxValue = enemy.maxHp;
         hpEnemy.value = enemy.hp;
         textHpEnemy.text = enemy.hp.ToString();
-        textLvlEnemy.text = "Lv." + enemy.level;
+        textLvlEnemy.text = $"Lv.{enemy.level}";
         textTargetEnemyName.text = enemy.GetTypeObject();
         
     }
@@ -147,8 +147,8 @@ public class GamaManager : MonoBehaviour
         if (pc.hp > 0)
         {
             textHp.text = pc.hp.ToString();
-            textLevel.text = "Lv." + pc.level;
-            textXp.text = pc.exp + "/" + pc.nextLevelXp;
+            textLevel.text = $"Lv.{pc.level}";
+            textXp.text = $"{pc.exp}/{pc.nextLevelXp}";
             hpSlider.maxValue = pc.maxHp;
             hpSlider.value = pc.hp;
             xpSlider.maxValue = pc.nextLevelXp;
@@ -165,33 +165,33 @@ public class GamaManager : MonoBehaviour
     {
         if (isCharacterPanel)
         {
-            textName.text = "Maya Lv." + pc.level;
-            textStrengh.text = "Strengh: " + pc.strengh;
-            textAgility.text = "Agility: " + pc.agility;
-            textConstitution.text = "Constitution: " + pc.constitution;
-            textArmor.text = "Armor: " + pc.armor;
-            textUpgradePoints.text = "Upgrade Points: " + pc.upgradePoint;
-            textMinMaxDamage.text = "Min-Max Damage: " + pc.minDamage + "-" + pc.maxDamage;
-            textMaxHp.text = "Max Hp: " + pc.maxHp;
-            textEXpCharacter.text = "EXP: " + pc.exp;
-            textXpToNextLevel.text = "Exp to next level: " + pc.nextLevelXp;
-            textCredits.text = "Credits: " + pc.credits;
-            textAmountPointsTalents.text = "Amount Points Talents: " + pc.getAmountPointTalent();
+            textName.text = $"Maya Lv.{pc.level}";
+            textStrengh.text = $"Strengh: {pc.strengh}";
+            textAgility.text = $"Agility: {pc.agility}";
+            textConstitution.text = $"Constitution: {pc.constitution}";
+            textArmor.text = $"Armor: {pc.armor}";
+            textUpgradePoints.text = $"Upgrade Points: {pc.upgradePoint}";
+            textMinMaxDamage.text = $"Min-Max Damage: {pc.minDamage}-{pc.maxDamage}";
+            textMaxHp.text = $"Max Hp: {pc.maxHp}";
+            textEXpCharacter.text = $"EXP: {pc.exp}";
+            textXpToNextLevel.text = $"Exp to next level: {pc.nextLevelXp}";
+            textCredits.text = $"Credits: {pc.credits}";
+            textAmountPointsTalents.text = $"Amount Points Talents: {pc.getAmountPointTalent()}";
         }
     }
 
     private void visibleTalentPanel()
     {
-        textAmountTalentPoint.text = "Amount Points Talents: " + pc.getAmountPointTalent();
+        textAmountTalentPoint.text = $"Amount Points Talents: {pc.getAmountPointTalent()}";
         int count = 0;
-        for (int i = 0; i < _level.Count; i++)
+        foreach (var t in _level)
         {
-            _level[i].SetActive(true);
-            if (count + 6 > pc.level)
-            {
-                break;
-            }
-            count += 6;
+	        t.SetActive(true);
+	        if (count + 6 > pc.level)
+	        {
+		        break;
+	        }
+	        count += 6;
         }
     }
 

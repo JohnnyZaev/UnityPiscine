@@ -20,13 +20,13 @@ public class AliveObject : MonoBehaviour
     public bool isExp;
     public List<PassiveSkill> _passiveSkills;
 
-    public void updateState()
+    protected void updateState()
     {
         updateHp();
         updateDamage();
     }
 
-    public void updateHp()
+    protected void updateHp()
     {
         hp = System.Convert.ToInt16(constitution * 5.0f);
         maxHp = hp;
@@ -42,8 +42,8 @@ public class AliveObject : MonoBehaviour
         minDamage = strengh / 2;
         maxDamage = minDamage + 4;
     }
-    
-    public void passiveSkills()
+
+    protected void passiveSkills()
     {
         foreach (var sk in _passiveSkills)
         {

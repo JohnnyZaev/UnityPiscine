@@ -28,6 +28,11 @@ public class PlayerController : AliveObject
     private Animator animator;
     private int amountPointTelent;
     public List<AudioSource> _attackSound;
+    private static readonly int Speed = Animator.StringToHash("Speed");
+    private static readonly int Run = Animator.StringToHash("Run");
+    private static readonly int Attack = Animator.StringToHash("attack");
+    private static readonly int Dead = Animator.StringToHash("Dead");
+
     public void Start()
     {
         constitution = 125;
@@ -40,7 +45,7 @@ public class PlayerController : AliveObject
     {
         if (hp > 0)
         {
-			animator.SetFloat("Speed", agent.velocity.magnitude);
+			animator.SetFloat(Speed, agent.velocity.magnitude);
 			HideWeapon();
 			if (!GamaManager.gm.isStaticPlayer)
             {
@@ -48,7 +53,7 @@ public class PlayerController : AliveObject
             }
             if (Input.GetMouseButtonUp(0) && isEnemy)
             {
-				isAttackEnd = true;        
+				isAttackEnd = true;
             }
             else if (Input.GetMouseButton(0) && isEnemy)
             {
@@ -112,13 +117,13 @@ public class PlayerController : AliveObject
 		{
 			weap.SetActive(false);
 		}
-		if (animator.GetFloat("Speed") == 0)
+		if (animator.GetFloat(Speed) == 0)
 			weapons[(int)currentWeapon].SetActive(true);
 	}
 
 	public void animationRun(bool status)
     {
-        animator.SetBool("Run", status);
+        animator.SetBool(Run, status);
     }
 
     public void hit(float damage)
@@ -165,17 +170,11 @@ public class PlayerController : AliveObject
         amountPointTelent--;
     }
     
-    /*
-    * For animation event
-    */
     public void deadEndAnimation()
     {
         return;
     }
     
-    /*
-     * For animation event
-     */
     public void attack()
     {
         if (isAttackEnd)
@@ -215,7 +214,8 @@ public class PlayerController : AliveObject
 
     public void cheatLevelUp()
     {
-        increaseExp(nextLevelXp);
+	    if (level < 50)
+			increaseExp(nextLevelXp);
     }
     
     private void increaseExp(float exp)
@@ -227,7 +227,7 @@ public class PlayerController : AliveObject
             hp = maxHp;
             upgradePoint += 5;
             amountPointTelent += 1;
-            this.exp = this.exp - nextLevelXp;
+            this.exp -= nextLevelXp;
             double _nextLevelXp = System.Convert.ToDouble(nextLevelXp * 1.5);
             nextLevelXp = System.Convert.ToInt32(Math.Ceiling(_nextLevelXp));
             _particalSystemLevelUp.Play();
@@ -238,20 +238,20 @@ public class PlayerController : AliveObject
     {
 		WeaponStats weap = weapons[(int)currentWeapon].GetComponent<WeaponStats>();
 		animator.speed = weap.attackSpeed;
-		animator.SetBool("attack", true);
+		animator.SetBool(Attack, true);
         isEnemy = true;
     }
     
     private void attackAnimationStop()
     {
 		animator.speed = 1;
-		animator.SetBool("attack", false);
+		animator.SetBool(Attack, false);
         isEnemy = false;
     }
     
     private void dead()
     {
-        animator.SetBool("Dead", true);
+        animator.SetBool(Dead, true);
     }
 
     public void ChangeWeapon(WeaponStats weapon)
