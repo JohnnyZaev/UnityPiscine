@@ -3,8 +3,8 @@
 public class Rotate : MonoBehaviour
 {
     public float speed;
-    
-    void Update()
+
+    private void Update()
     {
         if (speed == 0)
             transform.Rotate(new Vector3(15, 30, 45) * Time.deltaTime);

@@ -13,12 +13,12 @@ public class SkillManager : MonoBehaviour
     public bool     isDrop;
     public int    number;
 
-    void Awake () {
+    private void Awake () {
         if (sk == null)
             sk = this;
     }
 
-    void Update()
+    private void Update()
     {
         if (GamaManager.gm.isStaticPlayer)
         {

@@ -26,7 +26,7 @@ public class EnemyControllerBoss : AliveObject
     /*
      * Unity api methods
      */
-    void Start()
+    private void Start()
     {
 		player = GameObject.Find("Maya");
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -36,7 +36,7 @@ public class EnemyControllerBoss : AliveObject
         updateState();
     }
 
-    void Update()
+    private void Update()
     {
         if (hp > 0)
         {
@@ -84,8 +84,8 @@ public class EnemyControllerBoss : AliveObject
             findPlayer();
         }
     }
-    
-    void findPlayer()
+
+    private void findPlayer()
     {
         targetOnPlayer(GameObject.Find("Maya"));
     }

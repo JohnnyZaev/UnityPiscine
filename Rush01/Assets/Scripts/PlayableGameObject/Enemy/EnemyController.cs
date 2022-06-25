@@ -11,7 +11,6 @@ public class EnemyController : AliveObject
     public GameObject player;
 	public PlayerController playerController;
     public GameObject loot;
-
     
     private NavMeshAgent agent;
     private Animator _animator;
@@ -28,7 +27,7 @@ public class EnemyController : AliveObject
     /*
      * Unity api methods
      */
-    void Start()
+    private void Start()
     {
 		player = GameObject.Find("Maya");
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -38,7 +37,7 @@ public class EnemyController : AliveObject
         updateState();
     }
 
-    void Update()
+    private void Update()
     {
         if (hp > 0)
         {
@@ -90,8 +89,8 @@ public class EnemyController : AliveObject
             findPlayer();
         }
     }
-    
-    void findPlayer()
+
+    private void findPlayer()
     {
         targetOnPlayer(GameObject.Find("Maya"));
     }

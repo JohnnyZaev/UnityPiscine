@@ -9,7 +9,7 @@ public class PlayerController : AliveObject
 	public bool isEnemy;
     public bool isAttackEnd;
     public int upgradePoint;
-    public float nextLevelXP;
+    public float nextLevelXp = 200f;
     public MouseTarget mouseTarget;
     [SerializeField]private LayerMask _layerMask;
     [SerializeField]private AliveObject _targetEnemy;
@@ -17,7 +17,8 @@ public class PlayerController : AliveObject
     [SerializeField]private float distanceRange;
 	[SerializeField]private GameObject[] weapons;
     [SerializeField]private WeaponType currentWeapon;
-    enum WeaponType
+
+    private enum WeaponType
 	{
 		Sword,
 		Axe,
@@ -34,8 +35,8 @@ public class PlayerController : AliveObject
         agent = GetComponent<NavMeshAgent>();
         updateState();
     }
-    
-    void Update()
+
+    private void Update()
     {
         if (hp > 0)
         {
@@ -65,8 +66,8 @@ public class PlayerController : AliveObject
     {
         return agent.velocity.magnitude;
     }
-    
-    void move()
+
+    private void move()
     {
         if (Input.GetMouseButton(0) && !isEnemy)
         {
@@ -88,7 +89,7 @@ public class PlayerController : AliveObject
                         attackAnimationStart();
                     }
                 }
-                else if (hit.transform.tag == "Weapon" &&
+                else if (hit.transform.CompareTag("Weapon") &&
                          Vector3.Distance(hit.transform.position, transform.position) <= distanceRange)
                 {
                     PickUpItem(hit.transform.gameObject);
@@ -133,7 +134,7 @@ public class PlayerController : AliveObject
     private void OnTriggerEnter(Collider other)
     {
 	
-        if (other.gameObject.tag == "HitPoint")
+        if (other.gameObject.CompareTag("HitPoint"))
         {
             increaselifePotion();
             Destroy(other.gameObject);
@@ -215,21 +216,21 @@ public class PlayerController : AliveObject
 
     public void cheatLevelUp()
     {
-        increaseExp(nextLevelXP);
+        increaseExp(nextLevelXp);
     }
     
     private void increaseExp(float exp)
     {
         this.exp += exp;
-        if (this.exp >= nextLevelXP)
+        if (this.exp >= nextLevelXp)
         {
             level += 1;
             hp = maxHp;
             upgradePoint += 5;
             amountPointTelent += 1;
-            this.exp = this.exp - nextLevelXP;
-            double _nextLevelXp = System.Convert.ToDouble(nextLevelXP * 1.5);
-            nextLevelXP = System.Convert.ToInt32(Math.Ceiling(_nextLevelXp));
+            this.exp = this.exp - nextLevelXp;
+            double _nextLevelXp = System.Convert.ToDouble(nextLevelXp * 1.5);
+            nextLevelXp = System.Convert.ToInt32(Math.Ceiling(_nextLevelXp));
             _particalSystemLevelUp.Play();
         }
     }

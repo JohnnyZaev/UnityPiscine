@@ -52,8 +52,8 @@ public class RotateAttack : Skill
             oldTimeActivate = Time.time;
         }
     }
-    
-    void explosionDamage()
+
+    private void explosionDamage()
     {
         Collider[] hitColliders = Physics.OverlapSphere(_aliveObject.transform.position, 0.4f);
         int i = 0;

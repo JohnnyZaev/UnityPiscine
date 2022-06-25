@@ -10,7 +10,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject cellUnderMouse;
     public bool mouseOutsideInvertory;
     private GamaManager gm;
-    void Start()
+
+    private void Start()
     {
         cellUnderMouse = null;
         isInvertoryActive = false;

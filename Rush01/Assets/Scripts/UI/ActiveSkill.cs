@@ -6,7 +6,7 @@ public class ActiveSkill : MonoBehaviour
     public int number;
     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (SkillManager.sk.skill[number] != null)
         {

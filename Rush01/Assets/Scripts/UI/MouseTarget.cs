@@ -14,22 +14,24 @@ public class MouseTarget : MonoBehaviour
     public bool isTarget;
 
     public AliveObject target;
+    private Camera _camera;
 
     public void Start()
     {
-        mouse = new Vector3();
+	    _camera = Camera.main;
+	    mouse = new Vector3();
     }
     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         mouse = Input.mousePosition;
         mouse.z = 10;
-        ray = Camera.main.ScreenPointToRay(mouse);
+        ray = _camera.ScreenPointToRay(mouse);
         //Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue);
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.gameObject.tag == "EnemyObject")
+            if (hit.transform.gameObject.CompareTag("EnemyObject"))
             {
                 GamaManager.gm.target(hit.transform.gameObject.GetComponent<AliveObject>());
             }

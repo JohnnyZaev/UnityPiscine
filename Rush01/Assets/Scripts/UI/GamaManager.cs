@@ -61,13 +61,13 @@ public class GamaManager : MonoBehaviour
     public static GamaManager gm;
     public GameObject image1;
     public GameObject image2;
-    
-    void Awake () {
+
+    private void Awake () {
         if (gm == null)
             gm = this;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyUp(KeyCode.P))
         {
@@ -148,10 +148,10 @@ public class GamaManager : MonoBehaviour
         {
             textHp.text = pc.hp.ToString();
             textLevel.text = "Lv." + pc.level;
-            textXp.text = pc.exp + "/" + pc.nextLevelXP;
+            textXp.text = pc.exp + "/" + pc.nextLevelXp;
             hpSlider.maxValue = pc.maxHp;
             hpSlider.value = pc.hp;
-            xpSlider.maxValue = pc.nextLevelXP;
+            xpSlider.maxValue = pc.nextLevelXp;
             xpSlider.value = pc.exp;
         }
         else
@@ -174,7 +174,7 @@ public class GamaManager : MonoBehaviour
             textMinMaxDamage.text = "Min-Max Damage: " + pc.minDamage + "-" + pc.maxDamage;
             textMaxHp.text = "Max Hp: " + pc.maxHp;
             textEXpCharacter.text = "EXP: " + pc.exp;
-            textXpToNextLevel.text = "Exp to next level: " + pc.nextLevelXP;
+            textXpToNextLevel.text = "Exp to next level: " + pc.nextLevelXp;
             textCredits.text = "Credits: " + pc.credits;
             textAmountPointsTalents.text = "Amount Points Talents: " + pc.getAmountPointTalent();
         }

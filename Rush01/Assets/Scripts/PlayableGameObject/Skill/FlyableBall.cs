@@ -19,7 +19,7 @@ public class FlyableBall : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (isFly)
         {
@@ -49,8 +49,8 @@ public class FlyableBall : MonoBehaviour
         isFly = true;
         isDamage = false;
     }
-    
-    void explosionDamage()
+
+    private void explosionDamage()
     {
         Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, 0.4f);
         int i = 0;

@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
         //isEnemy = true;
     }
 
-    void Update()
+    private void Update()
     {
         if (!isEnemy)
         {
@@ -31,8 +31,8 @@ public class EnemySpawner : MonoBehaviour
             isEnemy = true;
         }
     }
-    
-    void OnDrawGizmos() {
+
+    private void OnDrawGizmos() {
         Gizmos.DrawIcon(transform.position, "death.png", false);
     }
 }

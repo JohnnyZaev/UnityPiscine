@@ -10,7 +10,7 @@ public class UpgradeEnable : MonoBehaviour
     public Text text;
     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (skill.levelSkill == skill.maxLvlSkill)
         {
@@ -24,6 +24,6 @@ public class UpgradeEnable : MonoBehaviour
         {
             buttonUpgrade.SetActive(false);
         }
-        text.text = "L." + skill.levelSkill;
+        text.text = $"L.{skill.levelSkill}";
     }
 }

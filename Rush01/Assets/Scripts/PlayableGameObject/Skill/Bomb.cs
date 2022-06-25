@@ -17,7 +17,7 @@ public class Bomb : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (isFly)
         {
@@ -45,8 +45,8 @@ public class Bomb : MonoBehaviour
     {
         _damage = damage;
     }
-    
-    void explosionDamage()
+
+    private void explosionDamage()
     {
         Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, 0.4f);
         int i = 0;
