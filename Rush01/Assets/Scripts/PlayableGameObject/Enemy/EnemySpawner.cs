@@ -11,11 +11,6 @@ public class EnemySpawner : MonoBehaviour
 
     public PlayerController pc;
 
-    public void Start()
-    {
-        //isEnemy = true;
-    }
-
     private void Update()
     {
         if (!isEnemy)

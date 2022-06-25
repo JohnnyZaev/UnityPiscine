@@ -22,14 +22,16 @@ public class EnemyController : AliveObject
     [SerializeField] private string _type;
     [SerializeField] private float _speedDownDead;
     [SerializeField] private float _speedUpSpawn;
-    
+    private GameObject _player;
+    private EnemySpawner _enemySpawner;
+    private static readonly int Run = Animator.StringToHash("Run");
+    private static readonly int Attack = Animator.StringToHash("attack");
 
-    /*
-     * Unity api methods
-     */
     private void Start()
     {
-		player = GameObject.Find("Maya");
+	    _enemySpawner = _parent.GetComponent<EnemySpawner>();
+	    _player = GameObject.Find("Maya");
+	    player = GameObject.Find("Maya");
         capsuleCollider = GetComponent<CapsuleCollider>();
         _animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -43,10 +45,9 @@ public class EnemyController : AliveObject
         {
             aliveLogic();
             passiveSkills();
-			GameObject player = GameObject.Find("Maya");
-			if (Vector3.Distance(transform.position, player.transform.position) < 0.7)
+            if (Vector3.Distance(transform.position, _player.transform.position) < 0.7)
 			{
-				targetOnPlayer(player);
+				targetOnPlayer(_player);
 			}
         }
         else if (hp <= 0)
@@ -54,10 +55,7 @@ public class EnemyController : AliveObject
             deadLogic();
         }
     }
-
-    /*
-     * Public action
-     */
+    
     public void attack()
     {
         if (75 + agility - playerController.agility > 60)
@@ -97,10 +95,10 @@ public class EnemyController : AliveObject
     
     public void upgradeStat()
     {
-        strengh = strengh + (strengh * 0.08f);
-        constitution = constitution + (constitution * 0.15f);
-        agility = agility + (agility * 0.05f);
-        exp = exp + (exp * 0.15f);
+        strengh += (strengh * 0.08f);
+        constitution += (constitution * 0.15f);
+        agility += (agility * 0.05f);
+        exp += (exp * 0.15f);
         updateHp();
         updateDamage();
     }
@@ -110,15 +108,12 @@ public class EnemyController : AliveObject
         return _type;
     }
     
-    /*
-     * Private action
-     */
     private void deadLogic()
     {
         transform.position = Vector3.MoveTowards(transform.position, checkDeadPoint, _speedDownDead * Time.deltaTime);
         if (Vector3.Distance(transform.position, checkDeadPoint) < 0.0001f)
         {
-            _parent.GetComponent<EnemySpawner>().isEnemy = false;
+            _enemySpawner.isEnemy = false;
             Destroy(gameObject);
                 
         }
@@ -133,16 +128,16 @@ public class EnemyController : AliveObject
         else if (isPlayer)
         {
             agent.SetDestination(playerObject.transform.position);
-            _animator.SetBool("Run", true);
+            _animator.SetBool(Run, true);
             if (!isAttack)
             {
-                _animator.SetBool("Run", true);
+                _animator.SetBool(Run, true);
             }
 
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
-                _animator.SetBool("Run", false);
-                _animator.SetBool("attack", true);
+                _animator.SetBool(Run, false);
+                _animator.SetBool(Attack, true);
                 isAttack = true;
                 rotateForAttack();
             }
@@ -150,7 +145,7 @@ public class EnemyController : AliveObject
             if (agent.remainingDistance >= agent.stoppingDistance)
             {
                 isAttack = false;
-                _animator.SetBool("attack", false);
+                _animator.SetBool(Attack, false);
             }
         }
     }
@@ -206,9 +201,6 @@ public class EnemyController : AliveObject
         }
     }
 
-    /*
-     * Animation event
-     */
     private void deadEndAnimation()
     {
         isDead = true;
@@ -217,7 +209,8 @@ public class EnemyController : AliveObject
         isSpawn = false;
         agent.enabled = false;
         capsuleCollider.enabled = false;
-        checkDeadPoint = new Vector3(transform.position.x, transform.position.y - 0.15f, transform.position.z);
+        var position = transform.position;
+        checkDeadPoint = new Vector3(position.x, position.y - 0.15f, position.z);
     }
 }
 

@@ -10,7 +10,7 @@ public class Rotate : MonoBehaviour
             transform.Rotate(new Vector3(15, 30, 45) * Time.deltaTime);
         else
         {
-            transform.Rotate(new Vector3(15, 30, 45) * Time.deltaTime * speed);
+            transform.Rotate(new Vector3(15, 30, 45) * (Time.deltaTime * speed));
         }
     }
 }

@@ -15,13 +15,15 @@ public class EnemyControllerBoss : AliveObject
     
     private NavMeshAgent agent;
     private Animator _animator;
-    private CapsuleCollider capsuleCollider;
     private Vector3 checkDeadPoint;
     private Vector3 checkPoint;
 
     [HideInInspector]public GameObject _parent;
     [SerializeField] private string _type;
-    
+    private static readonly int Dead = Animator.StringToHash("Dead");
+    private static readonly int Run = Animator.StringToHash("Run");
+    private static readonly int Attack = Animator.StringToHash("attack");
+
 
     /*
      * Unity api methods
@@ -29,7 +31,7 @@ public class EnemyControllerBoss : AliveObject
     private void Start()
     {
 		player = GameObject.Find("Maya");
-        capsuleCollider = GetComponent<CapsuleCollider>();
+        GetComponent<CapsuleCollider>();
         _animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         isSpawn = true;
@@ -40,9 +42,8 @@ public class EnemyControllerBoss : AliveObject
     {
         if (hp > 0)
         {
-            aliveLogic();
+            AliveLogic();
             passiveSkills();
-			GameObject player = GameObject.Find("Maya");
 			if (Vector3.Distance(transform.position, player.transform.position) < 0.7)
 			{
 				targetOnPlayer(player);
@@ -74,28 +75,28 @@ public class EnemyControllerBoss : AliveObject
             {
                 hp = 0;
                 isExp = true;
-                _animator.SetBool("Dead", true);
+                _animator.SetBool(Dead, true);
                 isDead = true;
-                spawnLoot();
+                SpawnLoot();
             }
         }
         if (!isPlayer)
         {
-            findPlayer();
+            FindPlayer();
         }
     }
 
-    private void findPlayer()
+    private void FindPlayer()
     {
         targetOnPlayer(GameObject.Find("Maya"));
     }
     
     public void upgradeStat()
     {
-        strengh = strengh + (strengh * 0.08f);
-        constitution = constitution + (constitution * 0.15f);
-        agility = agility + (agility * 0.05f);
-        exp = exp + (exp * 0.15f);
+        strengh += (strengh * 0.08f);
+        constitution += (constitution * 0.15f);
+        agility += (agility * 0.05f);
+        exp += (exp * 0.15f);
         updateHp();
         updateDamage();
     }
@@ -105,44 +106,44 @@ public class EnemyControllerBoss : AliveObject
         return _type;
     }
     
-    private void aliveLogic()
+    private void AliveLogic()
     {
         if (!isSpawn)
         {
-            spawnMove();
+            SpawnMove();
         }
         else if (isPlayer)
         {
             agent.SetDestination(playerObject.transform.position);
-            _animator.SetBool("Run", true);
+            _animator.SetBool(Run, true);
             if (!isAttack)
             {
-                _animator.SetBool("Run", true);
+                _animator.SetBool(Run, true);
             }
 
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
-                _animator.SetBool("Run", false);
-                _animator.SetBool("attack", true);
+                _animator.SetBool(Run, false);
+                _animator.SetBool(Attack, true);
                 isAttack = true;
-                rotateForAttack();
+                RotateForAttack();
             }
 
             if (agent.remainingDistance >= agent.stoppingDistance)
             {
                 isAttack = false;
-                _animator.SetBool("attack", false);
+                _animator.SetBool(Attack, false);
             }
         }
     }
 
-    private void spawnMove()
+    private void SpawnMove()
     {
             isSpawn = true;
             agent.Warp(transform.position);
     }
     
-    private void spawnLoot()
+    private void SpawnLoot()
     {
         if (Random.Range(0, 15) > 10)
         {
@@ -150,12 +151,12 @@ public class EnemyControllerBoss : AliveObject
         }
     }
     
-    private void rotateForAttack()
+    private void RotateForAttack()
     {
         Vector3 difference = playerObject.gameObject.transform.position - transform.position; 
         difference.Normalize();
-        float rotation_y = Mathf.Atan2(difference.z, difference.x) * Mathf.Rad2Deg;
-        agent.transform.rotation = Quaternion.Euler(0f, -rotation_y + 90, 0);
+        float rotationY = Mathf.Atan2(difference.z, difference.x) * Mathf.Rad2Deg;
+        agent.transform.rotation = Quaternion.Euler(0f, -rotationY + 90, 0);
         
     }
     

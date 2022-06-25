@@ -21,7 +21,7 @@ public class Bomb : MonoBehaviour
     {
         if (isFly)
         {
-            _rb.AddForce(dir * Time.deltaTime * speed, ForceMode.Impulse);
+            _rb.AddForce(dir * (Time.deltaTime * speed), ForceMode.Impulse);
         }
     }
 

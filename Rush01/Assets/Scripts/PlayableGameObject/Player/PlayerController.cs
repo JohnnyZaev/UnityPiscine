@@ -76,7 +76,6 @@ public class PlayerController : AliveObject
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.transform.tag);
                 if (hit.transform.gameObject.layer == 10 && Vector3.Distance(hit.transform.position, transform.position) <= distanceRange)
                 {
                     AliveObject tmp = hit.transform.gameObject.GetComponent<AliveObject>();

@@ -88,7 +88,8 @@ public class AttackForPlace : Skill
     
     public override string getInfo()
     {
-        return "Fire death " + (damage * GamaManager.gm.pc.minDamage) + "/" + (damage * GamaManager.gm.pc.maxDamage) + " CD " + coolDownTime + " seconds ";
+        return
+	        $"Fire death {(damage * GamaManager.gm.pc.minDamage)}/{(damage * GamaManager.gm.pc.maxDamage)} CD {coolDownTime} seconds ";
     }
     
     public override string getInfoLevelNext()
@@ -96,6 +97,7 @@ public class AttackForPlace : Skill
         float damageTmp = damage + (damage * 0.1f);
         float coolDownTimeTmp = coolDownTime - (coolDownTime * 0.05f);
             
-        return "Fire death " + (damageTmp * GamaManager.gm.pc.minDamage) + "/" + (damageTmp * GamaManager.gm.pc.maxDamage) + " CD " + coolDownTimeTmp + " seconds ";
+        return
+	        $"Fire death {(damageTmp * GamaManager.gm.pc.minDamage)}/{(damageTmp * GamaManager.gm.pc.maxDamage)} CD {coolDownTimeTmp} seconds ";
     }
 }
