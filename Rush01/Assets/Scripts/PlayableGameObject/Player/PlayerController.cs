@@ -9,7 +9,7 @@ public class PlayerController : AliveObject
 	public bool isEnemy;
     public bool isAttackEnd;
     public int upgradePoint;
-    public float nextLevelXp = 200f;
+    public double nextLevelXp = 200f;
     public MouseTarget mouseTarget;
     [SerializeField]private LayerMask _layerMask;
     [SerializeField]private AliveObject _targetEnemy;
@@ -215,7 +215,7 @@ public class PlayerController : AliveObject
     public void cheatLevelUp()
     {
 	    if (level < 50)
-			increaseExp(nextLevelXp);
+			increaseExp((float)nextLevelXp);
     }
     
     private void increaseExp(float exp)
@@ -227,9 +227,9 @@ public class PlayerController : AliveObject
             hp = maxHp;
             upgradePoint += 5;
             amountPointTelent += 1;
-            this.exp -= nextLevelXp;
+            this.exp -= (float)nextLevelXp;
             double _nextLevelXp = System.Convert.ToDouble(nextLevelXp * 1.5);
-            nextLevelXp = System.Convert.ToInt32(Math.Ceiling(_nextLevelXp));
+            nextLevelXp = System.Convert.ToInt64(Math.Ceiling(_nextLevelXp));
             _particalSystemLevelUp.Play();
         }
     }

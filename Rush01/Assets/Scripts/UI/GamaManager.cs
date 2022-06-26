@@ -148,10 +148,10 @@ public class GamaManager : MonoBehaviour
         {
             textHp.text = pc.hp.ToString();
             textLevel.text = $"Lv.{pc.level}";
-            textXp.text = $"{pc.exp}/{pc.nextLevelXp}";
+            textXp.text = $"{pc.exp}/{(float)pc.nextLevelXp}";
             hpSlider.maxValue = pc.maxHp;
             hpSlider.value = pc.hp;
-            xpSlider.maxValue = pc.nextLevelXp;
+            xpSlider.maxValue = (float)pc.nextLevelXp;
             xpSlider.value = pc.exp;
         }
         else
