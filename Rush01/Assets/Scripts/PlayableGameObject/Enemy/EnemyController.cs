@@ -177,8 +177,8 @@ public class EnemyController : AliveObject
                 weap.transform.eulerAngles = euler;
             }
 
-            weap.GetComponent<WeaponStats>().damage = Random.Range(10, 30);
-            weap.GetComponent<WeaponStats>().attackSpeed = Random.Range(0.3f, 0.8f);
+            weap.GetComponent<WeaponStats>().damage = Random.Range(10 * level, 30 * level);
+            weap.GetComponent<WeaponStats>().attackSpeed = Random.Range(0.3f * level, 0.8f * level);
         }
     }
     
