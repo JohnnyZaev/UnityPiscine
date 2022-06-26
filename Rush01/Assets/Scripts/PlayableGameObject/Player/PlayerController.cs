@@ -224,6 +224,7 @@ public class PlayerController : AliveObject
         if (this.exp >= nextLevelXp)
         {
             level += 1;
+            maxHp += 5;
             hp = maxHp;
             upgradePoint += 5;
             amountPointTelent += 1;
