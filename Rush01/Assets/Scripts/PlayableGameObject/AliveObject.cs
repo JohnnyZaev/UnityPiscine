@@ -28,13 +28,13 @@ public class AliveObject : MonoBehaviour
 
     protected void updateHp()
     {
-        hp = System.Convert.ToInt16(constitution * 5.0f);
+        hp = System.Convert.ToInt32(constitution * 5.0f);
         maxHp = hp;
     }
 
     public void UpdateMaxHp()
     {
-        maxHp = System.Convert.ToInt16(constitution * 5.0f);
+        maxHp = System.Convert.ToInt32(constitution * 5.0f);
     }
 
     public void updateDamage()
